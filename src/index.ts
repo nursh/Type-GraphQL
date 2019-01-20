@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
-import { buildSchema } from "type-graphql";
+import { buildSchema, formatArgumentValidationError } from "type-graphql";
 import { createConnection } from "typeorm";
 
 import { RegisterResolver } from "./modules/user/Register";
@@ -14,7 +14,8 @@ const main = async () => {
   });
 
   const server = new ApolloServer({
-    schema
+    schema,
+    formatError: formatArgumentValidationError
   });
 
   const app = express();
