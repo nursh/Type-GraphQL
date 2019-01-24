@@ -1,15 +1,25 @@
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Authorized, UseMiddleware } from 'type-graphql';
 import bcrypt from 'bcryptjs';
 import { User } from '../../entity/User';
 import { RegisterInput } from './register/registerInput';
+import { isAuth } from '../middleware/isAuth';
+import { sendEmail } from '../utils/sendEmail';
+import { createConfirmationURL } from '../utils/createConfirmationURL';
 
 
 @Resolver(User)
 export class RegisterResolver {
 
+  @Authorized() // One way of authentication
   @Query(() => String)
   hello() {
     return 'Hello World';
+  }
+
+  @UseMiddleware(isAuth) // Another way of authentication
+  @Query(() => String)
+  gundam() {
+    return "Barbatos Lupus Rex";
   }
 
   @Mutation(() => User)
@@ -23,6 +33,8 @@ export class RegisterResolver {
       email,
       password: hashedPassword
     }).save();
+
+    await sendEmail(email, await createConfirmationURL(user.id));
     return user;
   }
 }

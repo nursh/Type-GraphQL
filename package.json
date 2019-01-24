@@ -7,6 +7,8 @@
     "start": "ts-node-dev --respawn src/index.ts"
   },
   "dependencies": {
+    "@types/nodemailer": "^4.6.5",
+    "@types/uuid": "^3.4.4",
     "apollo-server-express": "^2.3.1",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.9.1",
@@ -16,10 +18,12 @@
     "express-session": "^1.15.6",
     "graphql": "^14.1.1",
     "ioredis": "^4.5.1",
+    "nodemailer": "^5.1.1",
     "pg": "^7.8.0",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.16.0",
-    "typeorm": "^0.2.11"
+    "typeorm": "^0.2.11",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
